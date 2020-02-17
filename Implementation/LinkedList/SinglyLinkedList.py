@@ -1,7 +1,7 @@
-from LinkedList import LinkedList
+from LinkedListBase import LinkedListBase
 from Node import Node
 
-class SinglyLinkedList(LinkedList):
+class SinglyLinkedList(LinkedListBase):
 
   def push(self, node):
     if (self.head is None):
@@ -19,7 +19,7 @@ class SinglyLinkedList(LinkedList):
       tail.next = node
   
   def insert_after(self, prev_node, new_node):
-    if (self.contains(prev_node) is False):
+    if (self.search(prev_node) is None):
       print("Node is not valid. Hence cannot insert after it")
       return
     temp = prev_node.next
@@ -60,7 +60,7 @@ def test_singly_linked_list():
   assert linked_list.head == node_4
 
   linked_list.remove(node_2)
-  assert not linked_list.contains(node_2)
+  assert not linked_list.search(node_2)
   linked_list.insert_after(node_2, node_6)
 
 

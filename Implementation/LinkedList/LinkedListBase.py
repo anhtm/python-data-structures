@@ -1,4 +1,4 @@
-class LinkedList:
+class LinkedListBase:
   def __init__(self, head = None):
     self.head = head
 
@@ -16,11 +16,11 @@ class LinkedList:
       temp = temp.next
     return temp
 
-  def contains(self, node):
+  def search(self, node):
     temp = self.head
     while (temp):
       if (temp == node):
-        return True
+        return node
       else:
         temp = temp.next
-    return False
+    return None
