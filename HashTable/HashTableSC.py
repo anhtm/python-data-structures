@@ -1,8 +1,11 @@
 import sys
-sys.path.append("..") # Adds higher directory to python modules path.
+sys.path.append('.') # Adds higher directory to python modules path.
+
+import os
+print (os.getcwd())
 
 from HashTable import HashTable
-from LinkedList import DoublyLinkedList
+from LinkedList.DoublyLinkedList import DoublyLinkedList
 
 class DataItem:
   def __init__(self, key = None, value = None):
