@@ -10,9 +10,8 @@ class LinkedListBase:
     print('')
 
   """
-  @description Search for a node based on its data
-  @analysis
-    - Time complexity O(n)
+  Search for a node based on its data
+  Time complexity O(n)
   """
   def search(self, data):
     current = self.head
