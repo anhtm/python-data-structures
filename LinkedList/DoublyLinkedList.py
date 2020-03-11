@@ -6,27 +6,27 @@ class DoublyLinkedList(LinkedListBase):
     LinkedListBase.__init__(self, head)
     self.tail = None
 
-  """
-  @description Insert a node at the beginning of the linked list
-  @analysis
-    - Time complexity O(1)
-  """
   def push(self, node):
+    """
+    Insert a node at the beginning of the linked list
+    Time complexity O(1)
+    """
     temp = self.head
     self.head = node
     self.head.prev = None
     self.head.next = temp
     if (temp is not None):
-      self.head.next.prev = node # previous head now points to the node as prev
+      # previous head now points to the node as prev
+      self.head.next.prev = node
     else:
-      self.tail = node # node is both head and tail if there is only 1 element in the linked list
+      # node is both head and tail if there is only 1 element in the linked list
+      self.tail = node
 
-  """
-  @description Insert a node at the end of the linked list
-  @analysis
-    - Time complexity O(1)
-  """
   def append(self, node):
+    """
+    Insert a node at the end of the linked list
+    Time complexity O(1)
+    """
     if (self.head is None):
       self.head = node
       self.tail = node
@@ -36,28 +36,30 @@ class DoublyLinkedList(LinkedListBase):
       node.prev = temp
       node.prev.next = node
 
-  """
-  @description Insert a node after another node. This assumes that prev_node exists in the linked list
-  @analysis
-    - Time complexity O(1)
-  """
   def insert_after(self, prev_node, new_node):
+    """
+    Insert a node after another node. 
+    Time complexity O(1)
+
+    prev_node -- this node is assumed to exist
+    new_node  -- the node to be inserted into
+    """
     temp = prev_node.next
     prev_node.next = new_node
     new_node.prev = prev_node
     new_node.next = temp
     new_node.next.prev = new_node
 
-  """
-  @description Remove a node from the linked list
-  @analysis
-    - Time complexity O(1)
-  """
   def remove(self, node):
+    """
+    Remove a node from the linked list
+    Time complexity O(1)
+    """
     temp_prev = node.prev
     temp_next = node.next
     node.prev.next = temp_next
     node.next.prev = temp_prev
+
 
 def test_doubly_linked_list():
   node_1 = DoublyNode(1)

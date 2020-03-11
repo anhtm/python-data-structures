@@ -2,55 +2,54 @@ from LinkedListBase import LinkedListBase
 from Node import Node
 
 class SinglyLinkedList(LinkedListBase):
-  """
-  @description Insert a node at the beginning of the linked list
-  @analysis
-    - Time complexity O(1)
-  """
+  
   def push(self, node):
+    """
+    Insert a node at the beginning of the linked list
+    Time complexity O(1)
+    """
     temp = self.head
     self.head = node # node is now head
     node.next = temp # and the previous head is now the second node in the chain
   
-  """
-  @description Insert a node at the end of the linked list
-  @analysis
-    - Time complexity O(n)
-  """
   def append(self, node):
+    """
+    Insert a node at the end of the linked list
+    Time complexity O(n)
+    """
     if (self.head is None):
       self.head = node
     else:
       tail = self.get_tail()
       tail.next = node
 
-  """
-  @description Get the last node of the linked list
-  @analysis
-    - Time complexity O(n): It has to traverse the whole list to find the tail node
-  """
   def get_tail(self):
+    """
+    Get the last node of the linked list
+    Time complexity O(n): Need to traverse the whole list to find the tail node
+    """
     temp = self.head
     while (temp is not None and temp.next is not None):
       temp = temp.next
     return temp
   
-  """
-  @description Insert a node after another node. This assumes that prev_node exists in the linked list
-  @analysis
-    - Time complexity O(1)
-  """
   def insert_after(self, prev_node, new_node):
+    """
+    Insert a node after another node. 
+    Time complexity O(1)
+
+    prev_node -- this node is assumed to exist
+    new_node  -- the node to be inserted into
+    """
     temp = prev_node.next
     prev_node.next = new_node
     new_node.next = temp
 
-  """
-  @description Remove a node from the linked list
-  @analysis
-    - Time complexity O(n)
-  """
   def remove(self, node):
+    """
+    Remove a node from the linked list
+    Time complexity O(n)
+    """
     if (self.head == node):
       self.head = node.next
     else:
