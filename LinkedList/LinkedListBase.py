@@ -5,22 +5,17 @@ class LinkedListBase:
   def print_list(self):
     temp = self.head
     while (temp):
-      print(temp.data)
+      print(temp.data, end=' ')
       temp = temp.next
+    print('')
 
-  def get_tail(self):
-    if (self.head is None):
-      return None
-    temp = self.head
-    while (temp.next is not None):
-      temp = temp.next
-    return temp
-
-  def search(self, node):
-    temp = self.head
-    while (temp):
-      if (temp == node):
-        return node
-      else:
-        temp = temp.next
-    return None
+  """
+  @description Search for a node based on its data
+  @analysis
+    - Time complexity O(n)
+  """
+  def search(self, data):
+    current = self.head
+    while (current and current.data != data):
+      current = current.next
+    return current
