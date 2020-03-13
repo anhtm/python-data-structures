@@ -13,8 +13,10 @@ class LinkedListBase:
   Search for a node based on its data
   Time complexity O(n)
   """
-  def search(self, data):
+  def search(self, key):
+    print("linkedlist::data", key)
     current = self.head
-    while (current and current.data != data):
+    print("linkedlist::current", current)
+    while (current and current.key != key):
       current = current.next
     return current

@@ -1,5 +1,5 @@
-from LinkedListBase import LinkedListBase
-from Node import Node
+from LinkedList.LinkedListBase import LinkedListBase
+from LinkedList.Node import Node
 
 class SinglyLinkedList(LinkedListBase):
   
