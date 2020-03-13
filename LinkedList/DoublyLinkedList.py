@@ -1,5 +1,5 @@
-from LinkedListBase import LinkedListBase
-from Node import DoublyNode
+from LinkedList.LinkedListBase import LinkedListBase
+from LinkedList.Node import DoublyNode
 
 class DoublyLinkedList(LinkedListBase):
   def __init__(self, head = None):
@@ -57,9 +57,10 @@ class DoublyLinkedList(LinkedListBase):
     """
     temp_prev = node.prev
     temp_next = node.next
-    node.prev.next = temp_next
-    node.next.prev = temp_prev
-
+    if (node.next):
+      node.next.prev = temp_prev
+    if (node.prev):
+      node.prev.next = temp_next
 
 def test_doubly_linked_list():
   node_1 = DoublyNode(1)
@@ -85,4 +86,4 @@ def test_doubly_linked_list():
 
   linked_list.print_list()
 
-test_doubly_linked_list()
+# test_doubly_linked_list()
