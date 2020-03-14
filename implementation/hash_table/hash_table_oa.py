@@ -1,5 +1,8 @@
-from HashTable import HashTable
+import sys
+sys.path.append('.')
+
 from enum import Enum
+from implementation.hash_table.hash_table import HashTable
 
 class CollisionHandler(Enum):
   LINEAR_PROBE = 1
@@ -20,7 +23,6 @@ class HashTableOA(HashTable):
 
   def __init__(self, collision_handler = None, default_size = 13): # choose m length of list to be a prime number
     HashTable.__init__(self, default_size)
-    self.open_address_methods = {}
     self.handle_collision = self.get_open_addressing_map(collision_handler)
 
   def get_open_addressing_map(self, method):
@@ -30,9 +32,6 @@ class HashTableOA(HashTable):
       CollisionHandler.DOUBLE_HASH: self.double_hash,
     }
     return mapper.get(method, self.linear_probe)
-
-  def general_hash(self, key):
-    return key % 7
 
   def linear_probe(self, key, i):
     """
@@ -45,15 +44,18 @@ class HashTableOA(HashTable):
     """
     return (self.general_hash(key) + i) % len(self.storage)
 
-  def quadratic_probe(self, key, probe):
+  def quadratic_probe(self, key, i):
     """
     Quadratic Probing uses the following formula:
       h(k, i) =  (h'(k) + c1 * i + c2 * i^2) % m (CLRS Chapter 11)
       where:
+        k = the key to be hashed
+        i = probe sequence
+        m = length of the list
         c1 and c2 are positive auxiliary constants
       to make full use of the hash table, the values of c1, c2, and m are constrained
     """
-    return (self.general_hash(key) + probe + probe**2) % len(self.storage)
+    return (self.general_hash(key) + i + i**2) % len(self.storage)
 
   def double_hash(self, key, probe):
     """
@@ -64,6 +66,9 @@ class HashTableOA(HashTable):
       to make full use of the hash table, the values of c1, c2, and m are constrained
     """
     return (self.hash_1(key) + probe * self.hash_2(key)) % len(self.storage)
+
+  def general_hash(self, key):
+    return key % 7
 
   def hash_1(self, key):
     return key % len(self.storage)
@@ -80,7 +85,6 @@ class HashTableOA(HashTable):
     while (probe_num < len(self.storage)):
       hashed_key = self.handle_collision(data, probe_num)
       slot_value = self.storage[hashed_key]
-      # Look for slots where their values are empty or previously deleted
       if (slot_value is None or slot_value == self.DELETED):
         self.storage[hashed_key] = data
         return hashed_key
@@ -103,24 +107,3 @@ class HashTableOA(HashTable):
 
   def delete(self, data):
     self.storage[self.storage.index(data)] = self.DELETED
-
-def test(method_name, table_size = 13):
-  print('Hash table: %s' % method_name)
-  ht = HashTableOA(method_name, table_size)
-  ht.insert(8)
-  ht.insert(17)
-  ht.insert(15)
-  ht.insert(10)
-  ht.print_table()
-
-  ht.delete(8)
-  ht.print_table()
-
-  ht.insert(22)
-  ht.print_table()
-
-test(CollisionHandler.LINEAR_PROBE)
-test(CollisionHandler.LINEAR_PROBE, 3)
-test(CollisionHandler.QUADRATIC_PROBE)
-test(CollisionHandler.DOUBLE_HASH)
-

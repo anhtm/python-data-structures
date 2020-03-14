@@ -1,9 +1,9 @@
 import sys
 sys.path.append('.')
 
-from HashTable import HashTable
-from LinkedList.DoublyLinkedList import DoublyLinkedList
-from LinkedList.Node import DoublyNode
+from implementation.hash_table.hash_table import HashTable
+from implementation.linked_list.doubly_linked_list import DoublyLinkedList
+from implementation.linked_list.node import DoublyNode
 
 class DataItem(DoublyNode):
   def __init__(self, key = None, data = None):
@@ -54,4 +54,7 @@ def test():
   ht.print_table()
   print("Search result", ht.search(17))
   ht.delete(item3)
+  ht.delete(item1)
   ht.print_table()
+
+test()

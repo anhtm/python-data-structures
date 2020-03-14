@@ -1,7 +1,10 @@
-from LinkedList.LinkedListBase import LinkedListBase
-from LinkedList.Node import Node
+import sys
+sys.path.append('.')
 
-class SinglyLinkedList(LinkedListBase):
+from implementation.linked_list.linked_list import LinkedList
+from implementation.linked_list.node import Node
+
+class SinglyLinkedList(LinkedList):
   
   def push(self, node):
     """
@@ -85,6 +88,4 @@ def test_singly_linked_list():
 
   linked_list.remove(node_2)
   assert not linked_list.search(node_2)
-
-test_singly_linked_list()
 

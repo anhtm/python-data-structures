@@ -1,9 +1,12 @@
-from LinkedList.LinkedListBase import LinkedListBase
-from LinkedList.Node import DoublyNode
+import sys
+sys.path.append('.')
 
-class DoublyLinkedList(LinkedListBase):
+from implementation.linked_list.linked_list import LinkedList
+from implementation.linked_list.node import DoublyNode
+
+class DoublyLinkedList(LinkedList):
   def __init__(self, head = None):
-    LinkedListBase.__init__(self, head)
+    LinkedList.__init__(self, head)
     self.tail = None
 
   def push(self, node):
