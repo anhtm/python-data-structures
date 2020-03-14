@@ -12,25 +12,56 @@ class DataItem(DoublyNode):
 
 class HashTableSC(HashTable):
   """
-    Hash Table implementation using Separate Chaining as its collision handling technique
+  Hash Table implementation using Separate Chaining as its collision handling technique
   """
 
   def hash(self, key):
     return key % 7
 
-  # item: DataItem
   def insert(self, item):
+    """
+    Insert a DataItem into HashTable.
+    In case of collision, append the item to the LinkedList at its hashed index
+
+    item -- DataItem
+
+    Time complexity: O(1)
+    The worst-case running time for insertion is O(1). The insertion procedure is fast
+    in part because it assumes that the element x being inserted is not already present
+    in the table (CLRS Chapter 11 pg. 258)
+    """
     hashed_value = self.hash(item.key)
     if (self.storage[hashed_value] is None):
       self.storage[hashed_value] = DoublyLinkedList()
     self.storage[hashed_value].append(item)
 
-  # key: DataItem.key
   def search(self, key):
+    """
+    Search for a DataItem in the HashTable.
+    Return its data if found, else return None
+
+    key -- DataItem.key
+
+    Time complexity:
+    - Proportional to the length of the list at the key's hashed index
+    - Denoted as load factor a = n/m given a hash table T with m slots that stores n elements 
+    - The average-case performance of hashing depends on how well the hash function distributes
+    the set of keys to be stored among m slots 
+    - If the number of hash-table slots is at least proportional to the number of elements in the table,
+    we have n = O(m), hence a = n / m = O(m) / m = O(1) (CLRS Chapter 11 pg. 258)
+    """
     result = self.storage[self.hash(key)].search(key)
     return result.data if result is not None else result
 
   def delete(self, item):
+    """
+    Delete a DataItem from the HashTable.
+
+    item -- DataItem
+
+    Time complexity: O(1)
+    This is under the assumption that hash table uses DoublyLinkedList and not SinglyLinkedList
+    """
     self.storage[self.hash(item.key)].remove(item)
 
   def print_table(self):
@@ -39,22 +70,3 @@ class HashTableSC(HashTable):
         item.print_list()
       else:
         print(item)
-
-def test():
-  ht = HashTableSC(5)
-  item1 = DataItem(8, 'Hello')
-  item2 = DataItem(17, 'How')
-  item3 = DataItem(15, 'Are')
-  item4 = DataItem(10, 'You')
-
-  ht.insert(item1)
-  ht.insert(item2)
-  ht.insert(item3)
-  ht.insert(item4)
-  ht.print_table()
-  print("Search result", ht.search(17))
-  ht.delete(item3)
-  ht.delete(item1)
-  ht.print_table()
-
-test()

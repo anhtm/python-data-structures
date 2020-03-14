@@ -81,6 +81,12 @@ class HashTableOA(HashTable):
     self.storage.extend([None for i in range (current_size)])
 
   def insert(self, data):
+    """
+    Insert an item into HashTable
+    data -- number
+
+    Time complexity O(1)
+    """
     probe_num = 0
     while (probe_num < len(self.storage)):
       hashed_key = self.handle_collision(data, probe_num)
