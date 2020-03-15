@@ -32,7 +32,6 @@ class TestHashTableSC:
     assert hash_table.storage[1].head == item
     assert hash_table.storage[1].tail == item2
 
-  # TODO: Current test fails. Test DoublyLinkedList.remove
   def test_delete(self):
     hash_table = HashTableSC()
     item = DataItem(1, 'hello')

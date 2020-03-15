@@ -66,26 +66,3 @@ class SinglyLinkedList(LinkedList):
         else:
           prev = current
           current = current.next
-
-def test_singly_linked_list():
-  node_1 = Node(1)
-  node_2 = Node(2)
-  node_3 = Node(3)
-  node_4 = Node(4)
-  node_5 = Node()
-  node_6 = Node(6)
-
-  linked_list = SinglyLinkedList()
-  linked_list.push(node_1)
-  linked_list.append(node_2)
-  linked_list.append(node_3)
-  linked_list.push(node_4)
-  linked_list.append(node_5)
-  linked_list.insert_after(node_4, node_6)
-  linked_list.print_list()
-
-  assert linked_list.head == node_4
-
-  linked_list.remove(node_2)
-  assert not linked_list.search(node_2)
-

@@ -1,6 +1,6 @@
 class Node:
-  def __init__(self):
-    self.key = None
+  def __init__(self, key = None):
+    self.key = key
     self.next = None
 
 class DoublyNode(Node):
