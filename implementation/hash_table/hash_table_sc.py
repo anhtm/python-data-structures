@@ -10,21 +10,23 @@ class DataItem(DoublyNode):
     DoublyNode.__init__(self, key)
     self.data = data
 
-class HashTableSC(HashTable):
-  """
-  Hash Table implementation using Separate Chaining as its collision handling technique
-  """
+"""
+Hash Table implementation using Separate Chaining as collision handling technique.
+It uses DoublyLinkedList as its chaining data structure
 
+Methods:
+0. hash: a simple hash function to calculate the index where an item is inserted into
+1. insert: insert an item into the hash table
+2. search: search for an item by its key
+3. delete: delete an item
+4. print_table: print all linked list data in the hash table
+"""
+class HashTableSC(HashTable):
   def hash(self, key):
     return key % 7
 
   def insert(self, item):
     """
-    Insert a DataItem into HashTable.
-    In case of collision, append the item to the LinkedList at its hashed index
-
-    item -- DataItem
-
     Time complexity: O(1)
     The worst-case running time for insertion is O(1). The insertion procedure is fast
     in part because it assumes that the element x being inserted is not already present
@@ -33,15 +35,10 @@ class HashTableSC(HashTable):
     hashed_value = self.hash(item.key)
     if (self.storage[hashed_value] is None):
       self.storage[hashed_value] = DoublyLinkedList()
-    self.storage[hashed_value].append(item)
+    self.storage[hashed_value].push(item)
 
   def search(self, key):
     """
-    Search for a DataItem in the HashTable.
-    Return its data if found, else return None
-
-    key -- DataItem.key
-
     Time complexity:
     - Proportional to the length of the list at the key's hashed index
     - Denoted as load factor a = n/m given a hash table T with m slots that stores n elements 
@@ -55,10 +52,6 @@ class HashTableSC(HashTable):
 
   def delete(self, item):
     """
-    Delete a DataItem from the HashTable.
-
-    item -- DataItem
-
     Time complexity: O(1)
     This is under the assumption that hash table uses DoublyLinkedList and not SinglyLinkedList
     """

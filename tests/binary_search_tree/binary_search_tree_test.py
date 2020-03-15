@@ -1,8 +1,7 @@
 import sys
 sys.path.append('.')
 
-from implementation.binary_search_tree.tree_node import TreeNode
-from implementation.binary_search_tree.binary_search_tree import BinarySearchTree
+from implementation.binary_search_tree.binary_search_tree import BinarySearchTree, TreeNode
 
 class TestBinarySearchTree:
   def test_init(self):

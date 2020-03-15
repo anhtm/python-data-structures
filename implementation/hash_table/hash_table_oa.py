@@ -9,15 +9,15 @@ class CollisionHandler(Enum):
   QUADRATIC_PROBE = 2
   DOUBLE_HASH = 3
 
+"""
+Hash Table implementation using Open Addressing as its collision handling technique
+There are 3 available options that can be chosen during instantiation: 
+  - LINEAR_PROBE
+  - QUADRATIC_PROBE
+  - DOUBLE_HASH
+If omitted, defaults to LINEAR_PROBE
+"""
 class HashTableOA(HashTable):
-  """
-  Hash Table implementation using Open Addressing as its collision handling technique
-  There are 3 available options that can be chosen during instantiation: 
-    - LINEAR_PROBE
-    - QUADRATIC_PROBE
-    - DOUBLE_HASH
-  If omitted, defaults to LINEAR_PROBE
-  """
   
   DELETED = 'DELETED'
 
@@ -80,13 +80,9 @@ class HashTableOA(HashTable):
     current_size = len(self.storage)
     self.storage.extend([None for i in range (current_size)])
 
+  # data -- number
   def insert(self, data):
-    """
-    Insert an item into HashTable
-    data -- number
-
-    Time complexity O(1)
-    """
+    """Time complexity: O(1)"""
     probe_num = 0
     while (probe_num < len(self.storage)):
       hashed_key = self.handle_collision(data, probe_num)
@@ -100,6 +96,7 @@ class HashTableOA(HashTable):
     return self.insert(data)
 
   def search(self, data):
+    """Time complexity: O(1) on average"""
     probe_number = 0
     while (probe_number < len(self.storage)):
       hashed_key = self.handle_collision(data, probe_number)
@@ -112,4 +109,5 @@ class HashTableOA(HashTable):
     return None
 
   def delete(self, data):
+    """Time complexity: O(1)"""
     self.storage[self.storage.index(data)] = self.DELETED

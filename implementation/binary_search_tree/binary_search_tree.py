@@ -1,28 +1,43 @@
-import sys
-sys.path.append('.')
+"""
+Binary Search Tree (BST) implementation:
+1. Traversal (inorder, preorder, postorder)
+2. Search (recursive & non-recursive)
+3. Queries
+  - Minimum
+  - Maximum
+  - Successor
+  - Predecessor
+4. Insert
+5. Delete
+"""
 
-from implementation.binary_search_tree.tree_node import TreeNode
+class TreeNode:
+  def __init__(self, key = None):
+    self.key = key
+    self.left = None
+    self.right = None
+    self.p = None
 
 class BinarySearchTree:
   def __init__(self):
     self.root = None
 
-  def inorder_tree_walk(self, node):
+  def inorder(self, node):
     if (node is not None):
-      self.inorder_tree_walk(node.left)
+      self.inorder(node.left)
       print(node.key, sep=' ')
-      self.inorder_tree_walk(node.right)
+      self.inorder(node.right)
 
-  def preorder_tree_walk(self, node):
+  def preorder(self, node):
     if (node is not None):
       print(node.key, sep=' ')
-      self.preorder_tree_walk(node.left)
-      self.preorder_tree_walk(node.right)
+      self.preorder(node.left)
+      self.preorder(node.right)
 
-  def postorder_tree_walk(self, node):
+  def postorder(self, node):
     if (node is not None):
-      self.postorder_tree_walk(node.left)
-      self.postorder_tree_walk(node.right)
+      self.postorder(node.left)
+      self.postorder(node.right)
       print(node.key, sep=' ')
 
   def search(self, key):
