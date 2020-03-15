@@ -1,9 +1,12 @@
-from LinkedList.LinkedListBase import LinkedListBase
-from LinkedList.Node import DoublyNode
+import sys
+sys.path.append('.')
 
-class DoublyLinkedList(LinkedListBase):
+from implementation.linked_list.linked_list import LinkedList
+from implementation.linked_list.node import DoublyNode
+
+class DoublyLinkedList(LinkedList):
   def __init__(self, head = None):
-    LinkedListBase.__init__(self, head)
+    LinkedList.__init__(self, head)
     self.tail = None
 
   def push(self, node):
@@ -55,35 +58,13 @@ class DoublyLinkedList(LinkedListBase):
     Remove a node from the linked list
     Time complexity O(1)
     """
-    temp_prev = node.prev
-    temp_next = node.next
-    if (node.next):
-      node.next.prev = temp_prev
-    if (node.prev):
-      node.prev.next = temp_next
-
-def test_doubly_linked_list():
-  node_1 = DoublyNode(1)
-  node_2 = DoublyNode(2)
-  node_3 = DoublyNode(3)
-  node_4 = DoublyNode(4)
-  node_5 = DoublyNode(5)
-  node_6 = DoublyNode(6)
-
-  linked_list = DoublyLinkedList()
-  linked_list.append(node_1)
-  linked_list.append(node_2)
-  linked_list.append(node_3)
-  linked_list.push(node_4)
-  linked_list.push(node_5)
-  linked_list.insert_after(node_4, node_6)
-  linked_list.print_list()
-
-  assert linked_list.head == node_5
-
-  linked_list.remove(node_2)
-  assert not linked_list.search(node_2)
-
-  linked_list.print_list()
-
-# test_doubly_linked_list()
+    if (node.prev is not None):
+      node.prev.next = node.next
+    else:
+      self.head = node.next
+      self.head.prev = None
+    if (node.next is not None):
+      node.next.prev = node.prev
+    else:
+      self.tail = node.prev
+      self.tail.next = None
