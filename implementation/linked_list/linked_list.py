@@ -1,3 +1,10 @@
+"""
+This is the base class for linked list implementation
+This class includes the basic constructor and utility methods as follow:
+1. print_list: print list's data|key
+2. search: search for a node based on its key
+"""
+
 class LinkedList:
   def __init__(self, head = None):
     self.head = head
@@ -11,10 +18,7 @@ class LinkedList:
     print('')
 
   def search(self, key):
-    """
-    Search for a node based on its data
-    Time complexity O(n)
-    """
+    """Time complexity: O(n)"""
     current = self.head
     while (current and current.key != key):
       current = current.next

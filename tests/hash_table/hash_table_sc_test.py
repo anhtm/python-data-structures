@@ -29,8 +29,8 @@ class TestHashTableSC:
     item2 = DataItem(8, 'world')
     hash_table.insert(item)
     hash_table.insert(item2)
-    assert hash_table.storage[1].head == item
-    assert hash_table.storage[1].tail == item2
+    assert hash_table.storage[1].head == item2
+    assert hash_table.storage[1].tail == item
 
   def test_delete(self):
     hash_table = HashTableSC()
