@@ -89,9 +89,38 @@ class BinarySearchTree:
       else:
         parent.right = node
 
-  def delete(self, node):
-    pass
+  """
+  Time complexity: O(1)
+  """
+  def transplant(self, node, new_node):
+    # node is root
+    if (node.p == None): 
+      self.root = new_node
+    elif (node.p.left == node):
+      node.p.left = new_node
+    else:
+      node.p.right = new_node
+    if (new_node != None):
+      new_node.p = node.p
 
-  # TODO: missing parameters
-  def transplant(self):
-    pass
+  """
+  Time complexity: O(h) where h is the height of the tree
+  BST is a binary tree, so the time to traverse the tree is O(log(n)), where n is the number of nodes in the tree
+  """
+  def delete(self, node):
+    if (node.left == None):
+      self.transplant(node, node.right)
+    elif (node.right == None):
+      self.transplant(node, node.left)
+    else:
+      # successor is always in node's right subtree, since its right subtree is not None
+      successor = self.get_successor(node)
+      if (node.right != successor):
+        # successor does not have a left child, since it's already the smallest item of node's right subtree
+        self.transplant(successor, successor.right)
+        successor.right = node.right
+        successor.right.p = successor
+      # This is handled in both cases: where successor is or is not node's right child
+      self.transplant(node, successor)
+      successor.left = node.left
+      successor.left.p = successor 

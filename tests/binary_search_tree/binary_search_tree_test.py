@@ -9,10 +9,19 @@ class TestBinarySearchTree:
     bst = BinarySearchTree()
     assert hasattr(bst, 'root')
 
+  """ Tree illustration
+            12
+          /     \
+        5         18
+      /   \      /  \
+    2       9   15   19
+          /    /   \
+         8    13    17
+  """
   def get_sample_bst(self):
     bst = BinarySearchTree()
     bst.root = TreeNode(12)
-    values = [5, 9, 2, 18, 15, 13, 17, 19]
+    values = [5, 9, 2, 18, 15, 13, 17, 19, 8]
     for i in values:
       bst.insert(TreeNode(i))
     return bst
@@ -56,11 +65,47 @@ class TestBinarySearchTree:
     assert bst.root.left.key == 3
     assert bst.root.left.p.key == 12
 
-  def test_transplant(self):
-    pass
+  def test_transplant_root(self):
+    bst = self.get_sample_bst()
+    temp = bst.root.right
+    bst.transplant(bst.root, bst.root.right)
+    assert bst.root == temp
+    assert temp.p == None
 
-  def test_delete(self):
-    pass
+  def test_transplant_norm(self):
+    bst = self.get_sample_bst()
+    temp = bst.root.right
+    bst.transplant(temp, temp.left)
+    assert temp.p.right == temp.left
+    assert temp.left.p == temp.p
 
+  # node has no left/right subtree
+  def test_delete_case_1(self):
+    bst = self.get_sample_bst()
+    bst.delete(bst.root.left.left) # delete
+    assert bst.root.left.left == None
 
+  # node has left subtree but no right subtree
+  def test_delete_case_2(self):
+    bst = self.get_sample_bst()
+    bst.delete(bst.root.left.right) # delete 9
+    assert bst.root.left.right.key == 8
 
+  # node has both left and right subtree, and its successor is its right child
+  def test_delete_case_3(self):
+    bst = self.get_sample_bst()
+    bst.delete(bst.root.right.left) # delete 15, successor = 17
+    assert bst.root.right.left.key == 17
+    assert bst.root.right.left.left.key == 13
+    assert bst.root.right.left.right == None
+    assert bst.root.right.left.left.p.key == 17
+
+  # node has both left and right subtree, but its successor is not its right child.
+  def test_delete_case_5(self):
+    bst = self.get_sample_bst()
+    bst.delete(bst.root.left) # delete 5, successor = 8
+    assert bst.root.left.key == 8
+    assert bst.root.left.left.key == 2
+    assert bst.root.left.right.key == 9
+    assert bst.root.left.left.p.key == 8
+    assert bst.root.left.right.p.key == 8
