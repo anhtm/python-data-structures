@@ -1,4 +1,12 @@
+import sys
+sys.path.append('.')
+
+from implementation.trees.tree_node import TreeNode
+
 """
+A binary search tree is a binary tree in which every node fits a specific ordering property: 
+all left descendents <= n < all right descendents. This must be true for each node n.
+
 Binary Search Tree (BST) implementation:
 1. Traversal (inorder, preorder, postorder)
 2. Search (recursive & non-recursive)
@@ -10,13 +18,6 @@ Binary Search Tree (BST) implementation:
 4. Insert
 5. Delete
 """
-
-class TreeNode:
-  def __init__(self, key = None):
-    self.key = key
-    self.left = None
-    self.right = None
-    self.p = None
 
 class BinarySearchTree:
   def __init__(self):
