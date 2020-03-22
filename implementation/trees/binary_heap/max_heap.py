@@ -18,58 +18,44 @@ Max-heap implementation:
 class MaxHeap:
   def __init__(self, storage = []):
     self.storage = storage
-    self.heap_size = len(self.storage)
-
-  @staticmethod
-  def get_list_index(heap_index):
-    return heap_index - 1
-
-  @staticmethod
-  def get_heap_index(list_index):
-    return list_index + 1
+    # heap size does not exceed len(self.storage) and 
+    # does not always equal to len(self.storage)
+    self.heap_size = len(self.storage) 
+    self.heap = []
 
   """
-  Return the index of heap[i]'s parent.
-  Heap index starts from 1 as opposed to list index which starts from 0
+  Return the index of node i's parent.
   """
   @staticmethod
   def parent(i):
-    return i >> 1
+    return int((i - 1) / 2)
   
-  """ Return the index of heap[i]'s left child  """
+  """ Return the index of node i's left child  """
   @staticmethod
   def left(i):
-    return i << 1
+    return int(i * 2 + 1)
   
-  """ Return the index of heap[i]'s right child  """
+  """ Return the index of node i's right child  """
   @staticmethod
   def right(i):
-    return (i << 1) + 1
+    return int(i * 2 + 2)
 
   """
   Time complexity: O(log(n))
-  
-  index - index of item in list
   """
   def max_heapify(self, index):
-    heap_index = MaxHeap.get_heap_index(index)
-    left_i = MaxHeap.left(heap_index)
-    right_i = MaxHeap.right(heap_index)
-    list_left_i = MaxHeap.get_list_index(left_i)
-    list_right_i = MaxHeap.get_list_index(right_i)
-
+    list_left_i = MaxHeap.left(index)
+    list_right_i = MaxHeap.right(index)
     largest = None
     #  determine the largest among A[i], A[left(i)] and A[right(i)]
-    if left_i <= self.heap_size and self.storage[list_left_i] > self.storage[index]:
+    if list_left_i < self.heap_size and self.storage[list_left_i] > self.storage[index]:
       largest = list_left_i
     else: largest = index
-    if right_i <= self.heap_size and self.storage[list_right_i] > self.storage[largest]:
+    if list_right_i < self.heap_size and self.storage[list_right_i] > self.storage[largest]:
       largest = list_right_i
     if largest is not index:
       # exchange places between the item at current index and the largest item
-      current = self.storage[index]
-      self.storage[index] = self.storage[largest]
-      self.storage[largest] = current
+      self.exchange(index, largest)
       self.max_heapify(largest)
 
   """Time complexity: O(nlog(n))
@@ -84,12 +70,42 @@ class MaxHeap:
   def heap_sort(self):
     self.build_max_heap()
     for i in reversed(range(1, len(self.storage))):
-      # exchange places between the item at current index and the largest item (which is at the 1st index of list)
-      current = self.storage[i]
-      self.storage[i] = self.storage[0]
-      self.storage[0] = current
+      # swap item at current index with the largest item (which is at the 1st index of list)
+      self.exchange(i, 0)
       self.heap_size -= 1
       self.max_heapify(0)
 
+  """Swap values at index a and b. Assume that these values exist in storage"""
+  def exchange(self, a, b):
+    temp_a = self.storage[a]
+    self.storage[a] = self.storage[b]
+    self.storage[b] = temp_a
+
+  """Time complexity: O(1) - assuming that the list is already a max heap"""
   def maximum(self):
-    return 
+    return self.storage[0]
+
+  def extract_max(self):
+    if (self.heap_size < 1):
+      raise Exception("Heap underflow")
+    max = self.maximum()
+    # swap last with first item
+    self.exchange(self.heap_size - 1, 0)
+    self.heap_size -= 1
+    self.max_heapify(0)
+    return max
+    
+  def insert(self, key):
+    pass
+
+  """Increase the value at index i with new_value"""
+  def increase_key(self, i, new_value):
+    if new_value < self.storage[i]:
+      raise Exception("New value is not valid. Should be at least", self.storage[i])
+    self.storage[i] = new_value
+    # Increase key would potentially break max heap property.
+    # Compare node with its parent until max heap property is preserved
+    # Add check for i > 1 since if i == 1 => storage[i] is max, hence parent(i) is not valid
+    while (i > 1 and self.storage[MaxHeap.parent(i)] < self.storage[i]):
+      self.exchange(self.parent(i), i)
+      i = self.parent(i)
