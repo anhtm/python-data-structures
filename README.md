@@ -17,3 +17,6 @@ The implementation in this library is consulted from [Introduction to Algorithms
 3. Trees
 
 - Binary Search Tree
+- Binary Heaps
+  - Max Heap
+  - Min Heap
