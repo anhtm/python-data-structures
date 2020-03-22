@@ -6,19 +6,30 @@ from implementation.trees.tree_node import TreeNode
 
 class TestMaxHeap:
 
-  storage = [16, 14, 10, 8, 7, 9, 3, 2, 4, 1]
+  # Non-max-heap list
+  storage = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
 
-  def test_node(self):
-    max_heap = MaxHeap()
-    max_heap.storage = TestMaxHeap.storage
-    max_heap.heap_size = len(TestMaxHeap.storage)
-    assert max_heap.parent(2) == 1
-    assert max_heap.left(2) == 4
-    assert max_heap.right(2) == 5
+  def test_static_methods(self):
+    assert MaxHeap.parent(2) == 1
+    assert MaxHeap.left(2) == 4
+    assert MaxHeap.right(2) == 5
+    assert MaxHeap.get_heap_index(1) == 2
+    assert MaxHeap.get_list_index(1) == 0
 
   def test_max_heapify(self):
-    pass
+    max_heap = MaxHeap([1, 2, 3])
+    max_heap.max_heapify(0) # heapify at index 0
+    assert max_heap.storage == [3, 2, 1]
 
+  def test_build_max_heap(self):
+    max_heap = MaxHeap(TestMaxHeap.storage)
+    max_heap.build_max_heap()
+    assert max_heap.storage == [16, 14, 10, 8, 7, 9, 3, 2, 4, 1]
+
+  def test_heap_sort(self):
+    max_heap = MaxHeap(TestMaxHeap.storage)
+    max_heap.heap_sort()
+    assert max_heap.storage == [1, 2, 3, 4, 7, 8, 9, 10, 14, 16]
 
   
 
