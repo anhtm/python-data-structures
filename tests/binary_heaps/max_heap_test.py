@@ -2,7 +2,7 @@ import sys
 import pytest
 sys.path.append('.')
 
-from implementation.trees.binary_heap.max_heap import MaxHeap
+from implementation.heaps.max_heap import MaxHeap
 from implementation.trees.tree_node import TreeNode
 
 class TestMaxHeap:
